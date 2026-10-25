@@ -1,0 +1,7 @@
+﻿# Build artifacts
+*.o
+*.exe
+bin/
+obj/
+*.dSYM/
+
