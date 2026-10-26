@@ -58,14 +58,72 @@ void agregarTexto(Editor *e, const char *nuevoTexto) {
     disponible = (MAX_TEXTO - 1) - actual;
     copiar = (nuevo < disponible) ? nuevo : disponible;
 
+    /* El texto se concatena tal cual al final del documento. */
     memmove(e->textoActual + actual, nuevoTexto, copiar);
     actual += copiar;
-
-    if (actual < MAX_TEXTO - 1 && (actual == 0 || e->textoActual[actual - 1] != '\n')) {
-        e->textoActual[actual] = '\n';
-        actual++;
-    }
     e->textoActual[actual] = '\0';
+}
+
+void borrarCaracteres(Editor *e, int cantidad) {
+    size_t longitud;
+    size_t aBorrar;
+    size_t tamanioAntes;
+
+    if (e == NULL) {
+        return;
+    }
+
+    if (cantidad <= 0) {
+        printf("La cantidad de caracteres debe ser mayor que cero.\n");
+        return;
+    }
+
+    longitud = strlen(e->textoActual);
+    if (longitud == 0) {
+        printf("No hay texto para borrar.\n");
+        return;
+    }
+
+    /* El estado anterior se guarda solo antes de una modificacion valida. */
+    tamanioAntes = e->historial.tamanio;
+    push(&e->historial, e->textoActual);
+    if (e->historial.tamanio == tamanioAntes) {
+        return;
+    }
+
+    aBorrar = (size_t) cantidad;
+    if (aBorrar > longitud) {
+        aBorrar = longitud;
+    }
+
+    e->textoActual[longitud - aBorrar] = '\0';
+}
+
+void mostrarHistorial(Editor *e) {
+    NodoPila *actual;
+    int nivel;
+
+    if (e == NULL) {
+        return;
+    }
+
+    printf("PILA DE HISTORIAL\n");
+    if (pilaVacia(&e->historial)) {
+        printf("  (pila vacia)\n");
+        return;
+    }
+
+    /* Se recorre la pila sin extraer nada: consultar no modifica el historial. */
+    nivel = 1;
+    for (actual = e->historial.tope; actual != NULL; actual = actual->siguiente) {
+        if (nivel == 1) {
+            printf("  TOPE -> [ \"%s\" ]\n", actual->texto);
+        } else {
+            printf("          [ \"%s\" ]\n", actual->texto);
+        }
+        nivel++;
+    }
+    printf("  Estados guardados: %d\n", (int) e->historial.tamanio);
 }
 
 void borrarUltimaLinea(Editor *e) {
