@@ -13,6 +13,25 @@
 
 **Fecha de Entrega y Presentación:** Lunes 26 de octubre de 2026
 
+## Compilación y ejecución
+
+**Requisito:** GCC con soporte C99 (MinGW-w64 en Windows) y `make`.
+
+```bash
+make                 # compila la aplicación en bin/editor_impresion
+make correr-pruebas  # ejecuta las 44 pruebas del gestor de impresión
+make pruebas-editor  # ejecuta las 18 pruebas del editor y la pila
+make limpiar         # borra los archivos generados
+```
+
+Para ejecutar la aplicación:
+
+```bash
+./bin/editor_impresion
+```
+
+El menú agrupa las operaciones del editor (1 a 7) y las del gestor de impresión (8 a 11). Las dos baterías de pruebas devuelven código de salida 0 solo si todas las verificaciones pasan, de modo que sirven como prueba de regresión.
+
 ## 1. Configuración de Entorno, Licenciamiento y Git
 
 ### 1.1. Licencia del Proyecto
