@@ -210,6 +210,37 @@ static void accion_borrar_caracteres(Editor *e)
     }
 }
 
+/* Guarda el documento actual en un archivo de texto. */
+static void accion_guardar(Editor *e)
+{
+    char ruta[MAX_LINEA];
+
+    if (e->textoActual[0] == '\0') {
+        printf("  [!] El documento esta vacio: nada que guardar.\n");
+        return;
+    }
+    if (!leer_linea("  Nombre del archivo: ", ruta, sizeof(ruta))) {
+        return;
+    }
+    if (ruta[0] == '\0') {
+        printf("  [!] El nombre del archivo no puede estar vacio.\n");
+        return;
+    }
+
+    switch (guardarDocumento(e, ruta)) {
+        case 0:
+            printf("  [OK] Documento guardado en %s (%d caracteres).\n",
+                   ruta, (int) strlen(e->textoActual));
+            break;
+        case 2:
+            printf("  [!] No se pudo abrir %s para escritura.\n", ruta);
+            break;
+        default:
+            printf("  [!] Error al escribir el archivo.\n");
+            break;
+    }
+}
+
 /* --- Acciones del gestor de impresion -------------------------------- */
 
 /* Envia el documento actual a la cola del nivel indicado. El contenido
@@ -366,6 +397,9 @@ int main(void)
                 break;
             case 12:
                 mostrar_historial_impresion(&gestor);
+                break;
+            case 13:
+                accion_guardar(&editor);
                 break;
             case 0:
                 limpiarPila(&editor.historial);

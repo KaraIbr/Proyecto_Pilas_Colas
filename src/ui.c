@@ -62,6 +62,9 @@ void mostrarMenu(void) {
     imprimirFilaMenu("  11. Ver estado de las colas");
     imprimirFilaMenu("  12. Ver historial de impresion");
     imprimirBorde("╠", "╣");
+    imprimirFilaMenu("  ARCHIVO");
+    imprimirFilaMenu("  13. Guardar documento en archivo");
+    imprimirBorde("╠", "╣");
     imprimirFilaMenu("   0. Salir");
     imprimirBorde("╠", "╣");
     imprimirFilaMenu("  [TOPE] cima de la pila de historial");
