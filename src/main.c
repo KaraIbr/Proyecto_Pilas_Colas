@@ -268,7 +268,6 @@ static void accion_despachar(GestorImpresion *g)
 {
     Trabajo           tomado;
     Trabajo           actual;
-    Trabajo           terminado;
     ResultadoDespacho resultado;
 
     resultado = gestor_iniciar_siguiente(g, &tomado);
@@ -278,20 +277,32 @@ static void accion_despachar(GestorImpresion *g)
                    tomado.id, tomado.nombre, tomado.paginas,
                    gestor_nombre_prioridad(tomado.prioridad),
                    gestor_nombre_estado(tomado.estado));
-            gestor_finalizar_en_curso(g, &terminado);
-            printf("  [OK] Trabajo #%d %s -> %s. Agregado al historial.\n",
-                   terminado.id, terminado.nombre,
-                   gestor_nombre_estado(terminado.estado));
+            printf("       Sigue en curso hasta que se finalice.\n");
             break;
         case DESPACHO_OCUPADO:
             gestor_trabajo_en_curso(g, &actual);
             printf("  [i] La impresora esta ocupada con #%d %s.\n",
                    actual.id, actual.nombre);
-            printf("      El trabajo en curso no se interrumpe.\n");
+            printf("      El trabajo en curso no se interrumpe aunque haya\n");
+            printf("      pendientes de mayor prioridad.\n");
             break;
         case DESPACHO_SIN_TRABAJOS:
             printf("  [i] No hay trabajos pendientes en ninguna de las tres colas.\n");
             break;
+    }
+}
+
+/* Da por terminado el trabajo en curso y lo pasa al historial. */
+static void accion_finalizar(GestorImpresion *g)
+{
+    Trabajo terminado;
+
+    if (gestor_finalizar_en_curso(g, &terminado)) {
+        printf("  [OK] Trabajo #%d %s -> %s. Agregado al historial.\n",
+               terminado.id, terminado.nombre,
+               gestor_nombre_estado(terminado.estado));
+    } else {
+        printf("  [i] La impresora no tiene ningun trabajo en curso.\n");
     }
 }
 
@@ -348,9 +359,12 @@ int main(void)
                 accion_despachar(&gestor);
                 break;
             case 10:
-                mostrar_estado(&gestor);
+                accion_finalizar(&gestor);
                 break;
             case 11:
+                mostrar_estado(&gestor);
+                break;
+            case 12:
                 mostrar_historial_impresion(&gestor);
                 break;
             case 0:
