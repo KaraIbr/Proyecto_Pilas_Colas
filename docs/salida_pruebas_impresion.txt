@@ -1,0 +1,103 @@
+========================================================
+ BATERIA DE PRUEBAS - GESTOR DE IMPRESION (Pilas y Colas)
+ Modulo: src/cola.c + src/impresion.c
+========================================================
+
+--------------------------------------------------------
+ CASO 1: Multiples trabajos con la misma prioridad (FIFO)
+--------------------------------------------------------
+    Encolados en NORMAL, en este orden: Doc-1, Doc-2, Doc-3
+    [PASA] quedan 3 trabajos pendientes
+    [PASA] sale primero Doc-1 (el que llego primero)
+    [PASA] sale despues Doc-2
+    [PASA] sale al final Doc-3
+    [PASA] la cola queda vacia
+
+--------------------------------------------------------
+ CASO 2: Trabajos con prioridades diferentes
+--------------------------------------------------------
+    Encolados en este orden: Baja-1, Normal-1, Alta-1
+    [PASA] Alta precede a todos aunque llego ultimo
+    [PASA] Normal se atiende antes que Baja
+    [PASA] Baja se atiende al final
+
+--------------------------------------------------------
+ CASO 3: Trabajo urgente llega durante un proceso activo
+--------------------------------------------------------
+    En curso: Informe-Baja (prioridad BAJA)
+    Pendiente en ALTA: Alta-Previa
+    Llega: Urgente-Alta (prioridad ALTA)
+    [PASA] el despachador reporta OCUPADO, no interrumpe
+    [PASA] el trabajo en curso sigue siendo Informe-Baja
+    [PASA] ambos Alta permanecen pendientes
+    [PASA] el urgente se coloco al final de su nivel, no al frente
+    [PASA] al liberarse la impresora entra Alta-Previa
+    [PASA] y despues el urgente
+
+--------------------------------------------------------
+ CASO 4: Procesar con las tres colas vacias
+--------------------------------------------------------
+    [PASA] no hay pendientes al iniciar
+    [PASA] el despachador informa SIN_TRABAJOS (sin error fatal)
+    [PASA] la impresora sigue libre
+    [PASA] finalizar sin trabajo en curso se rechaza sin fallo
+    [PASA] el gestor sigue operativo despues del intento
+
+--------------------------------------------------------
+ CASO 8: El documento encolado no cambia si se edita el texto
+--------------------------------------------------------
+    Enviado a imprimir con texto: "Version original del documento"
+    El documento se edita a:       "TEXTO COMPLETAMENTE DISTINTO tras editar"
+    Lo que la impresora recibe:    "Version original del documento"
+    [PASA] el trabajo conserva el texto original
+    [PASA] el trabajo NO refleja la edicion posterior
+
+--------------------------------------------------------
+ ESTADO: En espera -> Procesando -> Completado
+--------------------------------------------------------
+    [PASA] al registrarlo queda En espera
+    [PASA] se le asigna orden de llegada
+    [PASA] al despacharlo pasa a Procesando
+    [PASA] el trabajo en curso reporta Procesando
+    [PASA] al terminar pasa a Completado
+
+--------------------------------------------------------
+ HISTORIAL: los trabajos completados se conservan en orden
+--------------------------------------------------------
+    [PASA] el historial arranca vacio
+    [PASA] quedan 3 trabajos completados
+    [PASA] el historial no esta vacio
+    Primero del historial: Dos
+    [PASA] el primero del historial es el primero en terminar
+    [PASA] los del historial estan marcados Completado
+    [PASA] consultar el historial no lo modifica
+
+--------------------------------------------------------
+ VALIDACIONES: paginas > 0 y prioridad en {1, 2, 3}
+--------------------------------------------------------
+    [PASA] rechaza 0 paginas
+    [PASA] rechaza paginas negativas
+    [PASA] rechaza prioridad 0
+    [PASA] rechaza prioridad 4
+    [PASA] rechaza prioridad negativa
+    [PASA] rechaza nombre vacio
+    [PASA] acepta los tres niveles validos
+    [PASA] ningun envio invalido entro a las colas
+
+--------------------------------------------------------
+ SIMULADOR: salida esperada B, D, A, C, E
+--------------------------------------------------------
+    Llegada: A(5,Normal) B(2,Alta) C(10,Normal) D(3,Alta) E(8,Baja)
+    Estado inicial de las colas:
+       ALTA:   Documento B -> Documento D
+       NORMAL: Documento A -> Documento C
+       BAJA:   Documento E
+    [PASA] los 5 trabajos quedan pendientes
+    Orden de despacho obtenido: Documento B, Documento D, Documento A, Documento C, Documento E
+    [PASA] el orden de salida es B, D, A, C, E
+    [PASA] las colas quedan vacias
+    [PASA] los 5 quedaron en el historial
+
+========================================================
+ RESULTADO: 44 de 44 verificaciones pasaron
+========================================================

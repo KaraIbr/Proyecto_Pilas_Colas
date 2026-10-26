@@ -1,0 +1,64 @@
+========================================================
+ PRUEBAS DEL EDITOR - Pila de historial y Deshacer
+========================================================
+
+--------------------------------------------------------
+ SECUENCIA: Red / Red segura / borrar 7 / deshacer x2
+--------------------------------------------------------
+    [PASA] documento nuevo esta vacio
+    [PASA] historial nuevo esta vacio
+    Agregar "Red"       -> "Red"
+    [PASA] texto es Red
+    Agregar " segura"   -> "Red segura"
+    [PASA] texto es Red segura
+    Borrar 7 caracteres -> "Red"
+    [PASA] texto vuelve a Red
+    Estado de la pila tras 3 modificaciones:
+PILA DE HISTORIAL
+  TOPE -> [ "Red segura" ]
+          [ "Red" ]
+          [ "" ]
+  Estados guardados: 3
+    [PASA] la pila guarda 3 estados
+Deshacer aplicado.
+    Deshacer -> "Red segura"
+    [PASA] se recupera Red segura
+Deshacer aplicado.
+    Deshacer -> "Red"
+    [PASA] se recupera Red
+
+--------------------------------------------------------
+ CASO 5: varias modificaciones consecutivas
+--------------------------------------------------------
+    [PASA] el historial guarda los 4 estados previos
+    [PASA] el TOPE es el estado inmediatamente anterior
+
+--------------------------------------------------------
+ CASO 6: Deshacer varias veces seguidas (LIFO)
+--------------------------------------------------------
+    Texto: "ABC"
+Deshacer aplicado.
+    [PASA] primer deshacer deja AB
+Deshacer aplicado.
+    [PASA] segundo deshacer deja A
+Deshacer aplicado.
+    [PASA] tercer deshacer deja el documento vacio
+    [PASA] la pila queda vacia
+
+--------------------------------------------------------
+ CASO 7: Deshacer con la pila de historial vacia
+--------------------------------------------------------
+Deshacer aplicado.
+    [PASA] la pila esta vacia
+No hay cambios para deshacer.
+    [PASA] el programa sigue vivo tras deshacer de mas
+    [PASA] el documento no cambio
+Texto actual:
+(vacio)
+PILA DE HISTORIAL
+  (pila vacia)
+    [PASA] consultar no agrega estados a la pila
+
+========================================================
+ RESULTADO: 18 de 18 verificaciones pasaron
+========================================================
