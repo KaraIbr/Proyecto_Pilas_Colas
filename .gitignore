@@ -1,7 +1,19 @@
-﻿# Build artifacts
+# Binarios y objetos de compilacion
+build/
+bin/
 *.o
 *.exe
-bin/
-obj/
-*.dSYM/
+*.out
 
+# Archivos temporales de editores e IDE
+*~
+*.swp
+.vscode/
+.idea/
+*.layout
+*.dev
+
+# Sistema operativo
+Thumbs.db
+desktop.ini
+.DS_Store

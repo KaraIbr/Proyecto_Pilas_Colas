@@ -13,6 +13,25 @@
 
 **Fecha de Entrega y Presentación:** Lunes 26 de octubre de 2026
 
+## Compilación y ejecución
+
+**Requisito:** GCC con soporte C99 (MinGW-w64 en Windows) y `make`.
+
+```bash
+make                 # compila la aplicación en bin/editor_impresion
+make correr-pruebas  # ejecuta las 44 pruebas del gestor de impresión
+make pruebas-editor  # ejecuta las 18 pruebas del editor y la pila
+make limpiar         # borra los archivos generados
+```
+
+Para ejecutar la aplicación:
+
+```bash
+./bin/editor_impresion
+```
+
+El menú agrupa las operaciones del editor (1 a 7) y las del gestor de impresión (8 a 11). Las dos baterías de pruebas devuelven código de salida 0 solo si todas las verificaciones pasan, de modo que sirven como prueba de regresión.
+
 ## 1. Configuración de Entorno, Licenciamiento y Git
 
 ### 1.1. Licencia del Proyecto
@@ -82,8 +101,8 @@ proyecto_unidad4/
 | -------------------------- | --------------- | ------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
 | `feature/editor-pila`      | Karina          | `feat(pila): implement stack data structure and LIFO operations`    | Implementar `src/pila.c` (`push`, `pop`, `peek`, manejo explícito de `TOPE`).                                  |
 | `feature/editor-pila`      | Karina          | `feat(editor): implement text buffer and undo mechanism`            | Implementar `src/editor.c`, guardado de copia de estado previo a edición y Deshacer.                           |
-| `feature/gestor-impresion` | Arón            | `feat(cola): implement FIFO queue primitives`                       | Implementar `src/cola.c` (`enqueue`, `dequeue`, validaciones de cola vacía).                                   |
-| `feature/gestor-impresion` | Arón            | `feat(impresion): implement 3 priority queues and dispatcher`       | Implementar `src/impresion.c` con colas Alta (1), Normal (2) y Baja (3), y política FIFO dentro de cada nivel. |
+| `feature/gestor-impresion` | Aarón            | `feat(cola): implement FIFO queue primitives`                       | Implementar `src/cola.c` (`enqueue`, `dequeue`, validaciones de cola vacía).                                   |
+| `feature/gestor-impresion` | Aarón            | `feat(impresion): implement 3 priority queues and dispatcher`       | Implementar `src/impresion.c` con colas Alta (1), Normal (2) y Baja (3), y política FIFO dentro de cada nivel. |
 | `develop`                  | Ambos           | `merge: integrate feature/editor-pila and feature/gestor-impresion` | Integrar y compilar ambas estructuras en `develop` tras pruebas unitarias básicas.                             |
 
 ### HITO 3: Integración del Flujo y Design System en Consola
@@ -96,7 +115,7 @@ proyecto_unidad4/
 |**Rama**|**Responsable**|**Mensaje de Commit (Convencional)**|**Descripción de la Tarea**|
 |---|---|---|---|
 |`feature/cli-ui`|Karina|`feat(ui): add clean terminal layout and box drawings`|Implementar `src/ui.c` con bordes Unicode limpios e indicadores visuales (`[TOPE]`, `[ALTA]`).|
-|`feature/cli-ui`|Arón|`feat(main): integrate workflow from editor to print queue`|Conectar en `src/main.c` el paso de copia inmutable del texto al enviarlo a imprimir.|
+|`feature/cli-ui`|Aarón|`feat(main): integrate workflow from editor to print queue`|Conectar en `src/main.c` el paso de copia inmutable del texto al enviarlo a imprimir.|
 |`feature/cli-ui`|Ambos|`fix(validation): enforce positive pages and valid priority inputs`|Validar que páginas sea $> 0$ y rechazar prioridades fuera de rango (1, 2, 3).|
 |`develop`|Ambos|`merge: feature/cli-ui into develop`|Consolidar la aplicación interactiva completa en `develop`.|
 
@@ -111,7 +130,7 @@ proyecto_unidad4/
 |---|---|---|---|
 |`develop`|Ambos|`test: execute and log 8 mandatory rubric cases`|Correr el caso de prueba del simulador (B $\to$ D $\to$ A $\to$ C $\to$ E) y registrar salidas en consola.|
 |`develop`|Karina|`docs: complete technical report sections and architecture diagrams`|Redactar secciones de diseño, explicación teórica LIFO/FIFO y diagramas de flujo.|
-|`develop`|Arón|`docs: complete test evidence and member contribution records`|Incluir capturas de pantalla de los 8 casos y registrar el desglose de aportes individuales.|
+|`develop`|Aarón|`docs: complete test evidence and member contribution records`|Incluir capturas de pantalla de los 8 casos y registrar el desglose de aportes individuales.|
 |`main`|Ambos|`release: v1.0.0 final project delivery`|Merge fast-forward de `develop` a `main` y etiquetado con `git tag v1.0.0`.|
 
 ## 3. Matriz de Cobertura de Pruebas Obligatorias
@@ -137,7 +156,7 @@ proyecto_unidad4/
         
     - Ejecución en vivo de la secuencia de edición y recuperación de texto.
         
-- **Arón:**
+- **Aarón:**
     
     - Justificación técnica del Gestor de Impresión: uso de 3 colas FIFO independientes frente a un simple ordenamiento de listas.
         
