@@ -12,9 +12,13 @@
 ╠════════════════════════════════════════════════════════════╣
 ║   IMPRESION                                                ║
 ║    8. Enviar documento a impresion                         ║
-║    9. Despachar siguiente trabajo                          ║
-║   10. Ver estado de las colas                              ║
-║   11. Ver historial de impresion                           ║
+║    9. Iniciar siguiente trabajo                            ║
+║   10. Finalizar trabajo en curso                           ║
+║   11. Ver estado de las colas                              ║
+║   12. Ver historial de impresion                           ║
+╠════════════════════════════════════════════════════════════╣
+║   ARCHIVO                                                  ║
+║   13. Guardar documento en archivo                         ║
 ╠════════════════════════════════════════════════════════════╣
 ║    0. Salir                                                ║
 ╠════════════════════════════════════════════════════════════╣
@@ -39,9 +43,13 @@ Seleccione una opcion:
 ╠════════════════════════════════════════════════════════════╣
 ║   IMPRESION                                                ║
 ║    8. Enviar documento a impresion                         ║
-║    9. Despachar siguiente trabajo                          ║
-║   10. Ver estado de las colas                              ║
-║   11. Ver historial de impresion                           ║
+║    9. Iniciar siguiente trabajo                            ║
+║   10. Finalizar trabajo en curso                           ║
+║   11. Ver estado de las colas                              ║
+║   12. Ver historial de impresion                           ║
+╠════════════════════════════════════════════════════════════╣
+║   ARCHIVO                                                  ║
+║   13. Guardar documento en archivo                         ║
 ╠════════════════════════════════════════════════════════════╣
 ║    0. Salir                                                ║
 ╠════════════════════════════════════════════════════════════╣
@@ -52,7 +60,7 @@ Seleccione una opcion:
 Seleccione una opcion: 
 ════════════════════════════════════════════════════════════
   Nombre del documento:   Numero de paginas (> 0):   Prioridad (1=Alta, 2=Normal, 3=Baja):   [OK] Trabajo #1 encolado en prioridad NORMAL [En espera].
-       La cola guarda una copia del texto (18 caracteres).
+       Documento guardado en trabajo_01.txt (20 caracteres).
 ╔════════════════════════════════════════════════════════════╗
 ║         EDITOR DE TEXTO Y GESTOR DE IMPRESION              ║
 ╠════════════════════════════════════════════════════════════╣
@@ -67,9 +75,13 @@ Seleccione una opcion:
 ╠════════════════════════════════════════════════════════════╣
 ║   IMPRESION                                                ║
 ║    8. Enviar documento a impresion                         ║
-║    9. Despachar siguiente trabajo                          ║
-║   10. Ver estado de las colas                              ║
-║   11. Ver historial de impresion                           ║
+║    9. Iniciar siguiente trabajo                            ║
+║   10. Finalizar trabajo en curso                           ║
+║   11. Ver estado de las colas                              ║
+║   12. Ver historial de impresion                           ║
+╠════════════════════════════════════════════════════════════╣
+║   ARCHIVO                                                  ║
+║   13. Guardar documento en archivo                         ║
 ╠════════════════════════════════════════════════════════════╣
 ║    0. Salir                                                ║
 ╠════════════════════════════════════════════════════════════╣
@@ -94,9 +106,13 @@ Seleccione una opcion:
 ╠════════════════════════════════════════════════════════════╣
 ║   IMPRESION                                                ║
 ║    8. Enviar documento a impresion                         ║
-║    9. Despachar siguiente trabajo                          ║
-║   10. Ver estado de las colas                              ║
-║   11. Ver historial de impresion                           ║
+║    9. Iniciar siguiente trabajo                            ║
+║   10. Finalizar trabajo en curso                           ║
+║   11. Ver estado de las colas                              ║
+║   12. Ver historial de impresion                           ║
+╠════════════════════════════════════════════════════════════╣
+║   ARCHIVO                                                  ║
+║   13. Guardar documento en archivo                         ║
 ╠════════════════════════════════════════════════════════════╣
 ║    0. Salir                                                ║
 ╠════════════════════════════════════════════════════════════╣
@@ -107,7 +123,7 @@ Seleccione una opcion:
 Seleccione una opcion: 
 ════════════════════════════════════════════════════════════
 Texto actual:
-Contrato version 1 Y TEXTO AGREGADO DESPUES
+Contrato version uno Y EDICION POSTERIOR
 ╔════════════════════════════════════════════════════════════╗
 ║         EDITOR DE TEXTO Y GESTOR DE IMPRESION              ║
 ╠════════════════════════════════════════════════════════════╣
@@ -122,9 +138,13 @@ Contrato version 1 Y TEXTO AGREGADO DESPUES
 ╠════════════════════════════════════════════════════════════╣
 ║   IMPRESION                                                ║
 ║    8. Enviar documento a impresion                         ║
-║    9. Despachar siguiente trabajo                          ║
-║   10. Ver estado de las colas                              ║
-║   11. Ver historial de impresion                           ║
+║    9. Iniciar siguiente trabajo                            ║
+║   10. Finalizar trabajo en curso                           ║
+║   11. Ver estado de las colas                              ║
+║   12. Ver historial de impresion                           ║
+╠════════════════════════════════════════════════════════════╣
+║   ARCHIVO                                                  ║
+║   13. Guardar documento en archivo                         ║
 ╠════════════════════════════════════════════════════════════╣
 ║    0. Salir                                                ║
 ╠════════════════════════════════════════════════════════════╣
@@ -158,9 +178,13 @@ Seleccione una opcion:
 ╠════════════════════════════════════════════════════════════╣
 ║   IMPRESION                                                ║
 ║    8. Enviar documento a impresion                         ║
-║    9. Despachar siguiente trabajo                          ║
-║   10. Ver estado de las colas                              ║
-║   11. Ver historial de impresion                           ║
+║    9. Iniciar siguiente trabajo                            ║
+║   10. Finalizar trabajo en curso                           ║
+║   11. Ver estado de las colas                              ║
+║   12. Ver historial de impresion                           ║
+╠════════════════════════════════════════════════════════════╣
+║   ARCHIVO                                                  ║
+║   13. Guardar documento en archivo                         ║
 ╠════════════════════════════════════════════════════════════╣
 ║    0. Salir                                                ║
 ╠════════════════════════════════════════════════════════════╣
@@ -171,6 +195,39 @@ Seleccione una opcion:
 Seleccione una opcion: 
 ════════════════════════════════════════════════════════════
   [OK] Imprimiendo #1 Contrato (2 pag., prioridad NORMAL) [Procesando].
+       Contenido recuperado de trabajo_01.txt:
+         Contrato version uno
+       Sigue en curso hasta que se finalice.
+╔════════════════════════════════════════════════════════════╗
+║         EDITOR DE TEXTO Y GESTOR DE IMPRESION              ║
+╠════════════════════════════════════════════════════════════╣
+║   EDITOR                                                   ║
+║    1. Crear documento nuevo                                ║
+║    2. Agregar texto al final                               ║
+║    3. Eliminar caracteres del final                        ║
+║    4. Borrar ultima linea                                  ║
+║    5. Mostrar texto actual                                 ║
+║    6. Mostrar pila de historial                            ║
+║    7. Deshacer                                             ║
+╠════════════════════════════════════════════════════════════╣
+║   IMPRESION                                                ║
+║    8. Enviar documento a impresion                         ║
+║    9. Iniciar siguiente trabajo                            ║
+║   10. Finalizar trabajo en curso                           ║
+║   11. Ver estado de las colas                              ║
+║   12. Ver historial de impresion                           ║
+╠════════════════════════════════════════════════════════════╣
+║   ARCHIVO                                                  ║
+║   13. Guardar documento en archivo                         ║
+╠════════════════════════════════════════════════════════════╣
+║    0. Salir                                                ║
+╠════════════════════════════════════════════════════════════╣
+║   [TOPE] cima de la pila de historial                      ║
+║   [ALTA] prioridad alta de impresion                       ║
+╚════════════════════════════════════════════════════════════╝
+
+Seleccione una opcion: 
+════════════════════════════════════════════════════════════
   [OK] Trabajo #1 Contrato -> Completado. Agregado al historial.
 ╔════════════════════════════════════════════════════════════╗
 ║         EDITOR DE TEXTO Y GESTOR DE IMPRESION              ║
@@ -186,9 +243,13 @@ Seleccione una opcion:
 ╠════════════════════════════════════════════════════════════╣
 ║   IMPRESION                                                ║
 ║    8. Enviar documento a impresion                         ║
-║    9. Despachar siguiente trabajo                          ║
-║   10. Ver estado de las colas                              ║
-║   11. Ver historial de impresion                           ║
+║    9. Iniciar siguiente trabajo                            ║
+║   10. Finalizar trabajo en curso                           ║
+║   11. Ver estado de las colas                              ║
+║   12. Ver historial de impresion                           ║
+╠════════════════════════════════════════════════════════════╣
+║   ARCHIVO                                                  ║
+║   13. Guardar documento en archivo                         ║
 ╠════════════════════════════════════════════════════════════╣
 ║    0. Salir                                                ║
 ╠════════════════════════════════════════════════════════════╣
@@ -217,9 +278,13 @@ Seleccione una opcion:
 ╠════════════════════════════════════════════════════════════╣
 ║   IMPRESION                                                ║
 ║    8. Enviar documento a impresion                         ║
-║    9. Despachar siguiente trabajo                          ║
-║   10. Ver estado de las colas                              ║
-║   11. Ver historial de impresion                           ║
+║    9. Iniciar siguiente trabajo                            ║
+║   10. Finalizar trabajo en curso                           ║
+║   11. Ver estado de las colas                              ║
+║   12. Ver historial de impresion                           ║
+╠════════════════════════════════════════════════════════════╣
+║   ARCHIVO                                                  ║
+║   13. Guardar documento en archivo                         ║
 ╠════════════════════════════════════════════════════════════╣
 ║    0. Salir                                                ║
 ╠════════════════════════════════════════════════════════════╣
