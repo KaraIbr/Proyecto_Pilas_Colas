@@ -59,6 +59,17 @@ PILA DE HISTORIAL
   (pila vacia)
     [PASA] consultar no agrega estados a la pila
 
+--------------------------------------------------------
+ CASO 8: el archivo guardado no cambia si se edita el documento
+--------------------------------------------------------
+    [PASA] se guarda el documento en disco
+    Guardado con: "Version original"
+    El documento ahora dice: "Version original Y EDICION POSTERIOR"
+    [PASA] el archivo sigue existiendo
+    El archivo conserva:     "Version original"
+    [PASA] el archivo conserva el texto original
+    [PASA] el archivo NO refleja la edicion posterior
+
 ========================================================
- RESULTADO: 18 de 18 verificaciones pasaron
+ RESULTADO: 22 de 22 verificaciones pasaron
 ========================================================

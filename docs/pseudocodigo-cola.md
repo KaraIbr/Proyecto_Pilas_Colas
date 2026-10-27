@@ -41,13 +41,15 @@ Qué guarda cada nodo:
 
 ```
    id, nombre, paginas, prioridad
-   texto[1024]   <-- arreglo, no puntero
+   orden_llegada, estado
    siguiente ---> nodo siguiente
 ```
 
-`texto` es un arreglo dentro del nodo, así que al encolar se **copia** el
-documento. Si fuera un puntero, editar el texto después de enviarlo cambiaría
-lo que se imprime (caso de prueba 8).
+El nodo guarda solo los datos de control. El contenido del documento vive en
+el archivo `trabajo_NN.txt`, escrito al enviarlo y leído al imprimirlo.
+
+Como el archivo se escribe una sola vez, en el momento del envío, conserva el
+texto de entonces aunque el documento se edite después (caso de prueba 8).
 
 ## 3. Pseudocódigo de las primitivas
 

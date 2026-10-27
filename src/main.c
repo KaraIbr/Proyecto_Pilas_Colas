@@ -248,6 +248,7 @@ static void accion_guardar(Editor *e)
 static void accion_enviar(GestorImpresion *g, const Editor *e)
 {
     char           nombre[COLA_MAX_NOMBRE];
+    char           archivo[32];
     int            paginas;
     int            prioridad;
     Trabajo        registrado;
@@ -268,16 +269,24 @@ static void accion_enviar(GestorImpresion *g, const Editor *e)
         return;
     }
 
-    resultado = gestor_enviar(g, nombre, paginas, prioridad,
-                              e->textoActual, &registrado);
+    resultado = gestor_enviar(g, nombre, paginas, prioridad, &registrado);
 
     switch (resultado) {
         case ENVIO_OK:
             printf("  [OK] Trabajo #%d encolado en prioridad %s [%s].\n",
                    registrado.id, gestor_nombre_prioridad(registrado.prioridad),
                    gestor_nombre_estado(registrado.estado));
-            printf("       La cola guarda una copia del texto (%d caracteres).\n",
-                   (int) strlen(registrado.texto));
+            /* El contenido vive solo en este archivo: la cola guarda los
+             * datos de control y el documento se escribe aqui una vez. */
+            sprintf(archivo, "trabajo_%02d.txt", registrado.id);
+            if (guardarDocumento(e, archivo) == 0) {
+                printf("       Documento guardado en %s (%d caracteres).\n",
+                       archivo, (int) strlen(e->textoActual));
+            } else {
+                printf("       [!] No se pudo escribir %s: el trabajo quedo\n",
+                       archivo);
+                printf("           encolado pero sin contenido que imprimir.\n");
+            }
             break;
         case ENVIO_NOMBRE_INVALIDO:
             printf("  [!] El nombre del documento no puede estar vacio.\n");
@@ -294,6 +303,29 @@ static void accion_enviar(GestorImpresion *g, const Editor *e)
     }
 }
 
+/* Recupera del disco el documento que se guardo al enviar el trabajo.
+ * Es lo que la impresora toma como contenido a imprimir. */
+static void imprimir_contenido(int id)
+{
+    char  ruta[32];
+    char  linea[MAX_LINEA];
+    FILE *archivo;
+
+    sprintf(ruta, "trabajo_%02d.txt", id);
+    archivo = fopen(ruta, "rb");
+    if (archivo == NULL) {
+        printf("       [!] No se encontro %s: no hay nada que imprimir.\n", ruta);
+        return;
+    }
+
+    printf("       Contenido recuperado de %s:\n", ruta);
+    while (fgets(linea, sizeof(linea), archivo) != NULL) {
+        printf("         %s", linea);
+    }
+    printf("\n");
+    fclose(archivo);
+}
+
 /* Toma el siguiente trabajo y lo lleva de principio a fin. */
 static void accion_despachar(GestorImpresion *g)
 {
@@ -308,6 +340,7 @@ static void accion_despachar(GestorImpresion *g)
                    tomado.id, tomado.nombre, tomado.paginas,
                    gestor_nombre_prioridad(tomado.prioridad),
                    gestor_nombre_estado(tomado.estado));
+            imprimir_contenido(tomado.id);
             printf("       Sigue en curso hasta que se finalice.\n");
             break;
         case DESPACHO_OCUPADO:

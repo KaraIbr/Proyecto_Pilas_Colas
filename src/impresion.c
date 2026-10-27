@@ -81,7 +81,6 @@ ResultadoEnvio gestor_enviar(GestorImpresion *g,
                              const char *nombre,
                              int paginas,
                              int prioridad,
-                             const char *texto,
                              Trabajo *registrado)
 {
     Trabajo nuevo;
@@ -115,7 +114,6 @@ ResultadoEnvio gestor_enviar(GestorImpresion *g,
     nuevo.prioridad     = prioridad;
     nuevo.estado        = ESTADO_EN_ESPERA;
     copiar_texto(nuevo.nombre, COLA_MAX_NOMBRE, nombre);
-    copiar_texto(nuevo.texto,  COLA_MAX_TEXTO,  texto);
 
     if (!cola_encolar(destino, &nuevo)) {
         return ENVIO_SIN_MEMORIA;

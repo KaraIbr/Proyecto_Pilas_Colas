@@ -131,6 +131,42 @@ static void caso_7(void)
     limpiarPila(&e.historial);
 }
 
+/* Caso 8: el archivo guardado al enviar conserva el texto de entonces */
+static void caso_8(void)
+{
+    Editor e;
+    FILE  *archivo;
+    char   leido[128];
+
+    titulo("CASO 8: el archivo guardado no cambia si se edita el documento");
+    inicializarEditor(&e);
+
+    agregarTexto(&e, "Version original");
+    verificar("se guarda el documento en disco",
+              guardarDocumento(&e, "prueba_caso8.txt") == 0);
+    printf("    Guardado con: \"%s\"\n", e.textoActual);
+
+    /* Se edita el documento despues de haberlo guardado. */
+    agregarTexto(&e, " Y EDICION POSTERIOR");
+    printf("    El documento ahora dice: \"%s\"\n", e.textoActual);
+
+    archivo = fopen("prueba_caso8.txt", "rb");
+    verificar("el archivo sigue existiendo", archivo != NULL);
+    if (archivo != NULL) {
+        size_t n = fread(leido, 1, sizeof(leido) - 1, archivo);
+        leido[n] = '\0';
+        fclose(archivo);
+        printf("    El archivo conserva:     \"%s\"\n", leido);
+        verificar("el archivo conserva el texto original",
+                  strcmp(leido, "Version original") == 0);
+        verificar("el archivo NO refleja la edicion posterior",
+                  strcmp(leido, e.textoActual) != 0);
+    }
+
+    remove("prueba_caso8.txt");
+    limpiarPila(&e.historial);
+}
+
 int main(void)
 {
     printf("========================================================\n");
@@ -141,6 +177,7 @@ int main(void)
     caso_5();
     caso_6();
     caso_7();
+    caso_8();
 
     printf("\n========================================================\n");
     printf(" RESULTADO: %d de %d verificaciones pasaron\n", ok, totales);

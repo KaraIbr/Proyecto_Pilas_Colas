@@ -44,15 +44,6 @@
     [PASA] el gestor sigue operativo despues del intento
 
 --------------------------------------------------------
- CASO 8: El documento encolado no cambia si se edita el texto
---------------------------------------------------------
-    Enviado a imprimir con texto: "Version original del documento"
-    El documento se edita a:       "TEXTO COMPLETAMENTE DISTINTO tras editar"
-    Lo que la impresora recibe:    "Version original del documento"
-    [PASA] el trabajo conserva el texto original
-    [PASA] el trabajo NO refleja la edicion posterior
-
---------------------------------------------------------
  ESTADO: En espera -> Procesando -> Completado
 --------------------------------------------------------
     [PASA] al registrarlo queda En espera
@@ -99,5 +90,5 @@
     [PASA] los 5 quedaron en el historial
 
 ========================================================
- RESULTADO: 44 de 44 verificaciones pasaron
+ RESULTADO: 42 de 42 verificaciones pasaron
 ========================================================

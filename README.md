@@ -19,8 +19,9 @@
 
 ```bash
 make                 # compila la aplicación en bin/editor_impresion
-make correr-pruebas  # ejecuta las 44 pruebas del gestor de impresión
-make pruebas-editor  # ejecuta las 18 pruebas del editor y la pila
+make correr-pruebas  # ejecuta las 42 verificaciones del gestor de impresión
+make pruebas-editor  # ejecuta las 22 verificaciones del editor y la pila
+make auditoria       # cuenta reservas y liberaciones de memoria
 make limpiar         # borra los archivos generados
 ```
 
@@ -30,7 +31,11 @@ Para ejecutar la aplicación:
 ./bin/editor_impresion
 ```
 
-El menú agrupa las operaciones del editor (1 a 7) y las del gestor de impresión (8 a 11). Las dos baterías de pruebas devuelven código de salida 0 solo si todas las verificaciones pasan, de modo que sirven como prueba de regresión.
+El menú agrupa las operaciones del editor (1 a 7), las del gestor de impresión (8 a 12) y el guardado en archivo (13). Las dos baterías de pruebas devuelven código de salida 0 solo si todas las verificaciones pasan, de modo que sirven como prueba de regresión.
+
+Al enviar un documento a impresión se escribe un archivo `trabajo_NN.txt` en el directorio desde el que se lanzó el programa. Ese archivo es el contenido que se imprime.
+
+Los pasos detallados, el menú completo y un flujo de ejemplo están en [`docs/guia-ejecucion.md`](docs/guia-ejecucion.md).
 
 ## 1. Configuración de Entorno, Licenciamiento y Git
 

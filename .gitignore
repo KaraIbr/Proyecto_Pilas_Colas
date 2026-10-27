@@ -17,3 +17,6 @@ bin/
 Thumbs.db
 desktop.ini
 .DS_Store
+
+# Copias en disco de los trabajos enviados a impresion
+trabajo_*.txt

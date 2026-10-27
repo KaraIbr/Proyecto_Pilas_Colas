@@ -191,7 +191,7 @@ void deshacer(Editor *e) {
     printf("Deshacer aplicado.\n");
 }
 
-int guardarDocumento(Editor *e, const char *ruta) {
+int guardarDocumento(const Editor *e, const char *ruta) {
     FILE *archivo;
     size_t largo;
 
