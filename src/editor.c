@@ -190,3 +190,30 @@ void deshacer(Editor *e) {
 
     printf("Deshacer aplicado.\n");
 }
+
+int guardarDocumento(Editor *e, const char *ruta) {
+    FILE *archivo;
+    size_t largo;
+
+    if (e == NULL || ruta == NULL || ruta[0] == '\0') {
+        return 1;
+    }
+
+    archivo = fopen(ruta, "wb");
+    if (archivo == NULL) {
+        return 2;
+    }
+
+    /* Se escribe el buffer tal cual: no hay memoria reservada que liberar. */
+    largo = strlen(e->textoActual);
+    if (largo > 0 && fwrite(e->textoActual, 1, largo, archivo) != largo) {
+        fclose(archivo);
+        return 3;
+    }
+
+    if (fclose(archivo) != 0) {
+        return 3;
+    }
+
+    return 0;
+}

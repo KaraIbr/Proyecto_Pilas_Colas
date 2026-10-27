@@ -57,9 +57,13 @@ void mostrarMenu(void) {
     imprimirBorde("╠", "╣");
     imprimirFilaMenu("  IMPRESION");
     imprimirFilaMenu("   8. Enviar documento a impresion");
-    imprimirFilaMenu("   9. Despachar siguiente trabajo");
-    imprimirFilaMenu("  10. Ver estado de las colas");
-    imprimirFilaMenu("  11. Ver historial de impresion");
+    imprimirFilaMenu("   9. Iniciar siguiente trabajo");
+    imprimirFilaMenu("  10. Finalizar trabajo en curso");
+    imprimirFilaMenu("  11. Ver estado de las colas");
+    imprimirFilaMenu("  12. Ver historial de impresion");
+    imprimirBorde("╠", "╣");
+    imprimirFilaMenu("  ARCHIVO");
+    imprimirFilaMenu("  13. Guardar documento en archivo");
     imprimirBorde("╠", "╣");
     imprimirFilaMenu("   0. Salir");
     imprimirBorde("╠", "╣");

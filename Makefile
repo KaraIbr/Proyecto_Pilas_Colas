@@ -20,7 +20,7 @@ OBJ_PRUEBAS = $(BUILDDIR)/cola.o $(BUILDDIR)/impresion.o $(BUILDDIR)/pruebas_imp
 OBJ_PRUEBAS_ED = $(BUILDDIR)/pila.o $(BUILDDIR)/editor.o $(BUILDDIR)/pruebas_editor.o
 PRUEBAS_ED = $(BINDIR)/pruebas_editor
 
-.PHONY: all pruebas correr-pruebas pruebas-editor limpiar
+.PHONY: all pruebas correr-pruebas pruebas-editor auditoria limpiar
 
 all: $(PROGRAMA)
 
@@ -53,3 +53,11 @@ $(PRUEBAS_ED): $(OBJ_PRUEBAS_ED) | $(BINDIR)
 
 pruebas-editor: $(PRUEBAS_ED)
 	./$(PRUEBAS_ED)
+
+# Auditoria de memoria: cuenta reservas y liberaciones en las dos baterias.
+# -include inyecta el contador sin tocar el codigo de produccion.
+auditoria:
+	$(CC) $(CFLAGS) -include auditoria.h -o $(BINDIR)/auditoria_impresion src/cola.c src/impresion.c src/pruebas_impresion.c src/auditoria.c
+	$(CC) $(CFLAGS) -include auditoria.h -o $(BINDIR)/auditoria_editor src/pila.c src/editor.c src/pruebas_editor.c src/auditoria.c
+	./$(BINDIR)/auditoria_impresion | tail -4
+	./$(BINDIR)/auditoria_editor | tail -4

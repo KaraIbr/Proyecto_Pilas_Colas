@@ -16,6 +16,10 @@ void borrarUltimaLinea(Editor *e);
 void borrarCaracteres(Editor *e, int cantidad);
 /* Muestra el contenido de la pila de historial sin modificarla. */
 void mostrarHistorial(Editor *e);
+/* Escribe el documento actual en el archivo indicado.
+ * Devuelve 0 si se guardo, 1 si los argumentos no son validos,
+ * 2 si no se pudo abrir el archivo y 3 si fallo la escritura. */
+int guardarDocumento(Editor *e, const char *ruta);
 void deshacer(Editor *e);
 
 #endif
