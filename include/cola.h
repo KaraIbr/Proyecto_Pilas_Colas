@@ -25,7 +25,8 @@
 
 /* Limites de los campos de un trabajo de impresion */
 #define COLA_MAX_NOMBRE 64
-#define COLA_MAX_TEXTO  1024
+/* El contenido del documento no vive aqui: se guarda en trabajo_NN.txt
+ * al enviarlo, y de ahi lo recupera la impresora. */
 
 /* Estado en que puede encontrarse un trabajo de impresion */
 typedef enum {
@@ -37,10 +38,10 @@ typedef enum {
 /* ---------------------------------------------------------------------
  * Trabajo de impresion.
  *
- * El campo 'texto' es un arreglo por valor, NO un puntero: al encolar
- * un trabajo se copia el contenido completo del documento. Esa copia
- * es la que garantiza el caso de prueba 8 (si el editor modifica el
- * texto despues de enviarlo, el trabajo ya encolado no cambia).
+ * El trabajo guarda solo los datos de control. El contenido del
+ * documento vive en el archivo trabajo_NN.txt, escrito en el momento
+ * del envio: como no se vuelve a tocar, conserva el texto de entonces
+ * aunque el documento se edite despues.
  * ------------------------------------------------------------------- */
 typedef struct {
     int           id;                      /* clave unica del trabajo              */
@@ -49,7 +50,6 @@ typedef struct {
     int           prioridad;               /* 1 = Alta, 2 = Normal, 3 = Baja       */
     int           orden_llegada;           /* consecutivo asignado al registrarlo  */
     EstadoTrabajo estado;                  /* en espera, procesando o completado   */
-    char          texto[COLA_MAX_TEXTO];   /* copia inmutable del documento        */
 } Trabajo;
 
 /* Nodo de la lista enlazada que sostiene la cola */

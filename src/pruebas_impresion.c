@@ -70,9 +70,9 @@ static void caso_1_misma_prioridad(void)
     titulo("CASO 1: Multiples trabajos con la misma prioridad (FIFO)");
     gestor_inicializar(&g);
 
-    gestor_enviar(&g, "Doc-1", 3, PRIORIDAD_NORMAL, "texto 1", NULL);
-    gestor_enviar(&g, "Doc-2", 1, PRIORIDAD_NORMAL, "texto 2", NULL);
-    gestor_enviar(&g, "Doc-3", 7, PRIORIDAD_NORMAL, "texto 3", NULL);
+    gestor_enviar(&g, "Doc-1", 3, PRIORIDAD_NORMAL, NULL);
+    gestor_enviar(&g, "Doc-2", 1, PRIORIDAD_NORMAL, NULL);
+    gestor_enviar(&g, "Doc-3", 7, PRIORIDAD_NORMAL, NULL);
     printf("    Encolados en NORMAL, en este orden: Doc-1, Doc-2, Doc-3\n");
 
     verificar("quedan 3 trabajos pendientes", gestor_total_pendientes(&g) == 3);
@@ -98,9 +98,9 @@ static void caso_2_prioridades_distintas(void)
     gestor_inicializar(&g);
 
     /* Se encolan a proposito en orden inverso a su prioridad. */
-    gestor_enviar(&g, "Baja-1",   2, PRIORIDAD_BAJA,   "texto", NULL);
-    gestor_enviar(&g, "Normal-1", 2, PRIORIDAD_NORMAL, "texto", NULL);
-    gestor_enviar(&g, "Alta-1",   2, PRIORIDAD_ALTA,   "texto", NULL);
+    gestor_enviar(&g, "Baja-1",   2, PRIORIDAD_BAJA, NULL);
+    gestor_enviar(&g, "Normal-1", 2, PRIORIDAD_NORMAL, NULL);
+    gestor_enviar(&g, "Alta-1",   2, PRIORIDAD_ALTA, NULL);
     printf("    Encolados en este orden: Baja-1, Normal-1, Alta-1\n");
 
     despachar_uno(&g, nombre, sizeof(nombre));
@@ -123,17 +123,17 @@ static void caso_3_urgente_durante_proceso(void)
     titulo("CASO 3: Trabajo urgente llega durante un proceso activo");
     gestor_inicializar(&g);
 
-    gestor_enviar(&g, "Informe-Baja", 10, PRIORIDAD_BAJA, "texto", NULL);
+    gestor_enviar(&g, "Informe-Baja", 10, PRIORIDAD_BAJA, NULL);
     gestor_iniciar_siguiente(&g, &en_curso);
     printf("    En curso: %s (prioridad %s)\n", en_curso.nombre,
            gestor_nombre_prioridad(en_curso.prioridad));
 
     /* Ya habia un trabajo Alta esperando antes del urgente. */
-    gestor_enviar(&g, "Alta-Previa", 2, PRIORIDAD_ALTA, "texto", NULL);
+    gestor_enviar(&g, "Alta-Previa", 2, PRIORIDAD_ALTA, NULL);
     printf("    Pendiente en ALTA: Alta-Previa\n");
 
     /* Llega un trabajo urgente mientras el otro se imprime. */
-    gestor_enviar(&g, "Urgente-Alta", 1, PRIORIDAD_ALTA, "texto", NULL);
+    gestor_enviar(&g, "Urgente-Alta", 1, PRIORIDAD_ALTA, NULL);
     printf("    Llega: Urgente-Alta (prioridad ALTA)\n");
 
     verificar("el despachador reporta OCUPADO, no interrumpe",
@@ -177,37 +177,7 @@ static void caso_4_sin_trabajos(void)
     verificar("finalizar sin trabajo en curso se rechaza sin fallo",
               gestor_finalizar_en_curso(&g, NULL) == false);
     verificar("el gestor sigue operativo despues del intento",
-              gestor_enviar(&g, "Posterior", 1, PRIORIDAD_NORMAL, "t", NULL) == ENVIO_OK);
-
-    gestor_liberar(&g);
-}
-
-/* === CASO 8 (lado cola): copia inmutable del documento ============== */
-static void caso_8_copia_inmutable(void)
-{
-    GestorImpresion g;
-    char            documento[COLA_MAX_TEXTO];
-    Trabajo         encolado;
-    Trabajo         recuperado;
-
-    titulo("CASO 8: El documento encolado no cambia si se edita el texto");
-    gestor_inicializar(&g);
-
-    strcpy(documento, "Version original del documento");
-    gestor_enviar(&g, "Tesis", 40, PRIORIDAD_NORMAL, documento, &encolado);
-    printf("    Enviado a imprimir con texto: \"%s\"\n", documento);
-
-    /* Se edita el buffer del documento DESPUES de haberlo enviado. */
-    strcpy(documento, "TEXTO COMPLETAMENTE DISTINTO tras editar");
-    printf("    El documento se edita a:       \"%s\"\n", documento);
-
-    gestor_iniciar_siguiente(&g, &recuperado);
-    printf("    Lo que la impresora recibe:    \"%s\"\n", recuperado.texto);
-
-    verificar("el trabajo conserva el texto original",
-              strcmp(recuperado.texto, "Version original del documento") == 0);
-    verificar("el trabajo NO refleja la edicion posterior",
-              strcmp(recuperado.texto, documento) != 0);
+              gestor_enviar(&g, "Posterior", 1, PRIORIDAD_NORMAL, NULL) == ENVIO_OK);
 
     gestor_liberar(&g);
 }
@@ -221,21 +191,21 @@ static void caso_validaciones(void)
     gestor_inicializar(&g);
 
     verificar("rechaza 0 paginas",
-              gestor_enviar(&g, "X", 0, PRIORIDAD_ALTA, "t", NULL) == ENVIO_PAGINAS_INVALIDAS);
+              gestor_enviar(&g, "X", 0, PRIORIDAD_ALTA, NULL) == ENVIO_PAGINAS_INVALIDAS);
     verificar("rechaza paginas negativas",
-              gestor_enviar(&g, "X", -5, PRIORIDAD_ALTA, "t", NULL) == ENVIO_PAGINAS_INVALIDAS);
+              gestor_enviar(&g, "X", -5, PRIORIDAD_ALTA, NULL) == ENVIO_PAGINAS_INVALIDAS);
     verificar("rechaza prioridad 0",
-              gestor_enviar(&g, "X", 1, 0, "t", NULL) == ENVIO_PRIORIDAD_INVALIDA);
+              gestor_enviar(&g, "X", 1, 0, NULL) == ENVIO_PRIORIDAD_INVALIDA);
     verificar("rechaza prioridad 4",
-              gestor_enviar(&g, "X", 1, 4, "t", NULL) == ENVIO_PRIORIDAD_INVALIDA);
+              gestor_enviar(&g, "X", 1, 4, NULL) == ENVIO_PRIORIDAD_INVALIDA);
     verificar("rechaza prioridad negativa",
-              gestor_enviar(&g, "X", 1, -1, "t", NULL) == ENVIO_PRIORIDAD_INVALIDA);
+              gestor_enviar(&g, "X", 1, -1, NULL) == ENVIO_PRIORIDAD_INVALIDA);
     verificar("rechaza nombre vacio",
-              gestor_enviar(&g, "", 1, PRIORIDAD_ALTA, "t", NULL) == ENVIO_NOMBRE_INVALIDO);
+              gestor_enviar(&g, "", 1, PRIORIDAD_ALTA, NULL) == ENVIO_NOMBRE_INVALIDO);
     verificar("acepta los tres niveles validos",
-              gestor_enviar(&g, "A", 1, PRIORIDAD_ALTA,   "t", NULL) == ENVIO_OK &&
-              gestor_enviar(&g, "B", 1, PRIORIDAD_NORMAL, "t", NULL) == ENVIO_OK &&
-              gestor_enviar(&g, "C", 1, PRIORIDAD_BAJA,   "t", NULL) == ENVIO_OK);
+              gestor_enviar(&g, "A", 1, PRIORIDAD_ALTA, NULL) == ENVIO_OK &&
+              gestor_enviar(&g, "B", 1, PRIORIDAD_NORMAL, NULL) == ENVIO_OK &&
+              gestor_enviar(&g, "C", 1, PRIORIDAD_BAJA, NULL) == ENVIO_OK);
     verificar("ningun envio invalido entro a las colas",
               gestor_total_pendientes(&g) == 3);
 
@@ -261,11 +231,11 @@ static void caso_simulador(void)
     titulo("SIMULADOR: salida esperada B, D, A, C, E");
     gestor_inicializar(&g);
 
-    gestor_enviar(&g, "Documento A",  5, PRIORIDAD_NORMAL, "texto A", NULL);
-    gestor_enviar(&g, "Documento B",  2, PRIORIDAD_ALTA,   "texto B", NULL);
-    gestor_enviar(&g, "Documento C", 10, PRIORIDAD_NORMAL, "texto C", NULL);
-    gestor_enviar(&g, "Documento D",  3, PRIORIDAD_ALTA,   "texto D", NULL);
-    gestor_enviar(&g, "Documento E",  8, PRIORIDAD_BAJA,   "texto E", NULL);
+    gestor_enviar(&g, "Documento A",  5, PRIORIDAD_NORMAL, NULL);
+    gestor_enviar(&g, "Documento B",  2, PRIORIDAD_ALTA, NULL);
+    gestor_enviar(&g, "Documento C", 10, PRIORIDAD_NORMAL, NULL);
+    gestor_enviar(&g, "Documento D",  3, PRIORIDAD_ALTA, NULL);
+    gestor_enviar(&g, "Documento E",  8, PRIORIDAD_BAJA, NULL);
 
     printf("    Llegada: A(5,Normal) B(2,Alta) C(10,Normal) D(3,Alta) E(8,Baja)\n");
     printf("    Estado inicial de las colas:\n");
@@ -303,7 +273,7 @@ static void caso_estados(void)
     titulo("ESTADO: En espera -> Procesando -> Completado");
     gestor_inicializar(&g);
 
-    gestor_enviar(&g, "Informe", 4, PRIORIDAD_NORMAL, "texto", &t);
+    gestor_enviar(&g, "Informe", 4, PRIORIDAD_NORMAL, &t);
     verificar("al registrarlo queda En espera", t.estado == ESTADO_EN_ESPERA);
     verificar("se le asigna orden de llegada", t.orden_llegada == 1);
 
@@ -331,9 +301,9 @@ static void caso_historial(void)
 
     verificar("el historial arranca vacio", gestor_total_completados(&g) == 0);
 
-    gestor_enviar(&g, "Uno", 1, PRIORIDAD_BAJA,   "t", NULL);
-    gestor_enviar(&g, "Dos", 1, PRIORIDAD_ALTA,   "t", NULL);
-    gestor_enviar(&g, "Tres", 1, PRIORIDAD_NORMAL, "t", NULL);
+    gestor_enviar(&g, "Uno", 1, PRIORIDAD_BAJA, NULL);
+    gestor_enviar(&g, "Dos", 1, PRIORIDAD_ALTA, NULL);
+    gestor_enviar(&g, "Tres", 1, PRIORIDAD_NORMAL, NULL);
 
     despachar_uno(&g, nombre, sizeof(nombre));   /* Dos  (Alta)   */
     despachar_uno(&g, nombre, sizeof(nombre));   /* Tres (Normal) */
@@ -366,7 +336,6 @@ int main(void)
     caso_2_prioridades_distintas();
     caso_3_urgente_durante_proceso();
     caso_4_sin_trabajos();
-    caso_8_copia_inmutable();
     caso_estados();
     caso_historial();
     caso_validaciones();

@@ -269,22 +269,23 @@ static void accion_enviar(GestorImpresion *g, const Editor *e)
         return;
     }
 
-    resultado = gestor_enviar(g, nombre, paginas, prioridad,
-                              e->textoActual, &registrado);
+    resultado = gestor_enviar(g, nombre, paginas, prioridad, &registrado);
 
     switch (resultado) {
         case ENVIO_OK:
             printf("  [OK] Trabajo #%d encolado en prioridad %s [%s].\n",
                    registrado.id, gestor_nombre_prioridad(registrado.prioridad),
                    gestor_nombre_estado(registrado.estado));
-            printf("       La cola guarda una copia del texto (%d caracteres).\n",
-                   (int) strlen(registrado.texto));
-            /* Rastro en disco: un archivo por trabajo, nombrado con su folio. */
+            /* El contenido vive solo en este archivo: la cola guarda los
+             * datos de control y el documento se escribe aqui una vez. */
             sprintf(archivo, "trabajo_%02d.txt", registrado.id);
             if (guardarDocumento(e, archivo) == 0) {
-                printf("       Copia guardada en %s.\n", archivo);
+                printf("       Documento guardado en %s (%d caracteres).\n",
+                       archivo, (int) strlen(e->textoActual));
             } else {
-                printf("       [!] No se pudo escribir %s.\n", archivo);
+                printf("       [!] No se pudo escribir %s: el trabajo quedo\n",
+                       archivo);
+                printf("           encolado pero sin contenido que imprimir.\n");
             }
             break;
         case ENVIO_NOMBRE_INVALIDO:

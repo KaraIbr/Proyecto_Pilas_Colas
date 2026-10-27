@@ -87,7 +87,6 @@ ResultadoEnvio gestor_enviar(GestorImpresion *g,
                              const char *nombre,
                              int paginas,
                              int prioridad,
-                             const char *texto,
                              Trabajo *registrado);
 
 /* --- Consultas ----------------------------------------------------- */
