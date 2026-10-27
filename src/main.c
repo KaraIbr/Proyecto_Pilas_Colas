@@ -248,6 +248,7 @@ static void accion_guardar(Editor *e)
 static void accion_enviar(GestorImpresion *g, const Editor *e)
 {
     char           nombre[COLA_MAX_NOMBRE];
+    char           archivo[32];
     int            paginas;
     int            prioridad;
     Trabajo        registrado;
@@ -278,6 +279,13 @@ static void accion_enviar(GestorImpresion *g, const Editor *e)
                    gestor_nombre_estado(registrado.estado));
             printf("       La cola guarda una copia del texto (%d caracteres).\n",
                    (int) strlen(registrado.texto));
+            /* Rastro en disco: un archivo por trabajo, nombrado con su folio. */
+            sprintf(archivo, "trabajo_%02d.txt", registrado.id);
+            if (guardarDocumento(e, archivo) == 0) {
+                printf("       Copia guardada en %s.\n", archivo);
+            } else {
+                printf("       [!] No se pudo escribir %s.\n", archivo);
+            }
             break;
         case ENVIO_NOMBRE_INVALIDO:
             printf("  [!] El nombre del documento no puede estar vacio.\n");
