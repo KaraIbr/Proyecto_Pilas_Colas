@@ -302,6 +302,29 @@ static void accion_enviar(GestorImpresion *g, const Editor *e)
     }
 }
 
+/* Recupera del disco el documento que se guardo al enviar el trabajo.
+ * Es lo que la impresora toma como contenido a imprimir. */
+static void imprimir_contenido(int id)
+{
+    char  ruta[32];
+    char  linea[MAX_LINEA];
+    FILE *archivo;
+
+    sprintf(ruta, "trabajo_%02d.txt", id);
+    archivo = fopen(ruta, "rb");
+    if (archivo == NULL) {
+        printf("       [!] No se encontro %s: no hay nada que imprimir.\n", ruta);
+        return;
+    }
+
+    printf("       Contenido recuperado de %s:\n", ruta);
+    while (fgets(linea, sizeof(linea), archivo) != NULL) {
+        printf("         %s", linea);
+    }
+    printf("\n");
+    fclose(archivo);
+}
+
 /* Toma el siguiente trabajo y lo lleva de principio a fin. */
 static void accion_despachar(GestorImpresion *g)
 {
@@ -316,6 +339,7 @@ static void accion_despachar(GestorImpresion *g)
                    tomado.id, tomado.nombre, tomado.paginas,
                    gestor_nombre_prioridad(tomado.prioridad),
                    gestor_nombre_estado(tomado.estado));
+            imprimir_contenido(tomado.id);
             printf("       Sigue en curso hasta que se finalice.\n");
             break;
         case DESPACHO_OCUPADO:
